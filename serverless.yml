@@ -1,0 +1,23 @@
+service: billing-daily-report
+
+provider:
+  name: aws
+  stage: ${opt:stage, self:custom.defaultStage}
+  runtime: nodejs12.x
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ce:GetCostAndUsage
+      Resource: "*"
+
+custom:
+  defaultStage: prd
+  environment: ${file(./env.yml)}
+
+functions:
+  create:
+    handler: dist/index.create
+    environment: ${self:custom.environment}
+    events:
+      - schedule: cron(0 0 * * ? *)
