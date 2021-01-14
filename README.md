@@ -12,7 +12,7 @@ $ yarn
 $ cp ./env.example.yml ./env.yml
 ```
 
-- Set slack webhook url & channel name to env.yml
+- Set slack webhook url
 
 ## Build
 
